@@ -1,0 +1,22 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+
+body {
+  /* This is a font-stack that tries to use the system-default sans-serifs first */
+  font-family: Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+x-postpress-app {
+  --article-gallery-display: flex;
+  --article-gallery-item-flex: auto;
+  --article-gallery-item-margin: 0;
+  --h1-font-size: 1.5rem;
+  --img-padding-top: 2rem;
+  --ul-list-style-type: none;
+}

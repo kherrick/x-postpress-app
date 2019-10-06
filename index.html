@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="Description" content="An app using x-postpress that fetches WordPress posts from the REST API.">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#000000">
+
+  <base href="/x-postpress-app/">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="theme.css">
+  <title>XPostpress App</title>
+</head>
+<body>
+  <x-postpress-app
+    siteTitle="XPostpress App"
+    siteUrl="/x-postpress-app/"
+    apiHost="https://content.example.com"
+  ></x-postpress-app>
+
+  <script type="module" src="./dist/esm/x-postpress-app.js"></script>
+  <script type="module">
+    import registerServiceWorker from './service-worker/registerServiceWorker.js'
+
+    registerServiceWorker(document.querySelector('base').href.slice(0, -1))
+  </script>
+</body>
+
+</html>
