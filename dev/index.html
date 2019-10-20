@@ -12,6 +12,15 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="theme.css">
   <title>XPostpress App</title>
+  <script>
+    // HACK: The Redux package assumes `process` exists - mock it here before the module is loaded.
+    // ----: also useful for live development where node_env doesn't exist
+    window.process = {
+      env: {
+        NODE_ENV: 'development'
+      }
+    }
+  </script>
 </head>
 <body>
   <x-postpress-app

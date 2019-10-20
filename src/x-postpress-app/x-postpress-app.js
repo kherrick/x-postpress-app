@@ -1,5 +1,4 @@
 import { XPostpressApp } from './src/XPostpressApp.js'
+import { defineCustomElement } from './src/utilities'
 
-if (!customElements.get('x-postpress-app')) {
-  customElements.define('x-postpress-app', XPostpressApp)
-}
+defineCustomElement('x-postpress-app', XPostpressApp)

@@ -28,6 +28,7 @@
     "date-fns": "^2.4.1",
     "lit-element": "^2.2.1",
     "lit-html": "^1.1.2",
+    "lit-redux-router": "^0.9.14",
     "lodash-es": "^4.17.15",
     "pwa-helpers": "^0.9.1",
     "redux": "^4.0.4",

@@ -9,6 +9,10 @@ import './components/XPostpressBranding'
 import './components/XPostpressContent'
 import './components/XPostpressDrawerChildren'
 
+import { store } from './store/configureStore'
+import { connectRouter, navigate } from 'lit-redux-router'
+connectRouter(store)
+
 export class XPostpressApp extends LitElement {
   static get styles() {
     return css`
@@ -102,10 +106,24 @@ export class XPostpressApp extends LitElement {
         <x-postpress-drawer-children></x-postpress-drawer-children>
       </app-drawer>
 
-      <x-postpress-content
-        apiHost="${this.apiHost}"
-        featuredPost="${JSON.stringify(this.featuredPost)}"
-      ></x-postpress-content>
+      <div class="app-content">
+        <lit-route
+          path="*/counter"
+          component="x-postpress-counter"
+          .resolve="${() => import('./components/XPostpressCounter')}"
+        ></lit-route>
+
+        <lit-route path="^\/$|^\/dev$|^\/x-postpress-app\/$">
+          <x-postpress-content
+            apiHost="${this.apiHost}"
+            featuredPost="${JSON.stringify(this.featuredPost)}"
+          ></x-postpress-content>
+
+          <button @click=${() => store.dispatch(navigate(`${window.location.pathname}/counter`))}>load counter</button>
+        </lit-route>
+
+        <lit-route><h1>404 Not found</h1></lit-route>
+      </div>
     `
   }
 }

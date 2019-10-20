@@ -11,7 +11,7 @@ const XPostpressDrawerChildren = class extends LitElement {
         overflow: auto;
       }
 
-      [featuredPost] {
+      [sidebarButton] {
         --mdc-theme-on-primary: #111111;
         --mdc-theme-primary: #cccccc;
 
@@ -19,7 +19,7 @@ const XPostpressDrawerChildren = class extends LitElement {
         width: 100%;
       }
 
-      [featuredPost]:hover {
+      [sidebarButton]:hover {
         text-decoration: underline;
       }
 
@@ -87,7 +87,7 @@ const XPostpressDrawerChildren = class extends LitElement {
                       <mwc-button
                         @click="${this._handleMenuFeaturedPostChange(featuredPost)}"
                         label=${featuredPost.title}
-                        featuredPost
+                        sidebarButton
                       ></mwc-button>
                     </li>
                   `
