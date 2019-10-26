@@ -28,7 +28,7 @@ const XPostpressHamburger = class extends LitElement {
     `
   }
 
-  _handleDrawerChange(event) {
+  _handleHamburgerClick(event) {
     this.shadowRoot.dispatchEvent(
       XPostpressDrawerChange(event)
     )
@@ -37,7 +37,7 @@ const XPostpressHamburger = class extends LitElement {
   render() {
     return html`
       <paper-icon-button
-        @click="${event => this._handleDrawerChange(event)}"
+        @click="${event => this._handleHamburgerClick(event)}"
         aria-label="Featured Cities"
         icon="menu"
       ></paper-icon-button>
