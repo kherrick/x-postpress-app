@@ -2,6 +2,8 @@ import { LitElement, css, html } from 'lit-element'
 import '@polymer/paper-icon-button'
 import '@polymer/iron-icons'
 
+import { XPostpressDrawerChange } from '../events/events'
+
 const XPostpressHamburger = class extends LitElement {
   static get styles() {
     return css`
@@ -28,11 +30,7 @@ const XPostpressHamburger = class extends LitElement {
 
   _handleDrawerChange(event) {
     this.shadowRoot.dispatchEvent(
-      new CustomEvent('x-postpress-drawer-change', {
-        bubbles: true,
-        composed: true,
-        detail: event
-      })
+      XPostpressDrawerChange(event)
     )
   }
 

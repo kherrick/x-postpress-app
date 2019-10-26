@@ -1,5 +1,4 @@
 import { html, LitElement } from 'lit-element'
-
 import { defineCustomElement } from '../utilities'
 
 import '../components/DecrementButton'

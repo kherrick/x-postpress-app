@@ -2,6 +2,11 @@ import { LitElement, css, html } from 'lit-element'
 import '@polymer/paper-listbox/paper-listbox'
 import '@polymer/paper-item/paper-item'
 
+import {
+  XPostpressDrawerChange,
+  XPostpressDrawerChildren as XPostpressDrawerChildrenEvent
+} from '../events/events'
+
 const XPostpressDrawerChildren = class extends LitElement {
   static get styles() {
     return css`
@@ -32,28 +37,15 @@ const XPostpressDrawerChildren = class extends LitElement {
     `
   }
 
-  _handleDrawerChange(event) {
-    this.shadowRoot.dispatchEvent(
-      new CustomEvent('x-postpress-drawer-change', {
-        bubbles: true,
-        composed: true,
-        detail: event
-      })
-    )
-  }
-
   _handleMenuFeaturedPostChange({ contentPost }) {
-
     return event => {
       this.shadowRoot.dispatchEvent(
-        new CustomEvent('x-postpress-drawer-children', {
-          bubbles: true,
-          composed: true,
-          detail: contentPost
-        })
+        XPostpressDrawerChildrenEvent(contentPost)
       )
 
-      this._handleDrawerChange(event)
+      this.shadowRoot.dispatchEvent(
+        XPostpressDrawerChange(contentPost)
+      )
     }
   }
 

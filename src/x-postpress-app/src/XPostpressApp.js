@@ -4,16 +4,19 @@ import '@polymer/app-layout/app-drawer/app-drawer'
 import '@polymer/app-layout/app-header/app-header'
 import '@polymer/app-layout/app-toolbar/app-toolbar'
 
-import './components/XPostpressHamburger'
 import './components/XPostpressBranding'
-import { contentPost } from './components/XPostpressContent'
+import './components/XPostpressCounter'
 import './components/XPostpressDrawerChildren'
+import './components/XPostpressHamburger'
+
+import { contentPost } from './components/XPostpressContent'
+import './components/XPostpressContent'
+
+import { X_POSTPRESS_DRAWER_CHANGE, X_POSTPRESS_DRAWER_CHILDREN } from './events/events'
 
 import { store } from './store/configureStore'
 import { connectRouter, navigate } from 'lit-redux-router'
 connectRouter(store)
-
-import './components/XPostpressCounter'
 
 export class XPostpressApp extends LitElement {
   static get styles() {
@@ -90,11 +93,11 @@ export class XPostpressApp extends LitElement {
       apiHost: this.apiHost
     }
 
-    this.addEventListener('x-postpress-drawer-change', event => {
+    this.addEventListener(X_POSTPRESS_DRAWER_CHANGE, event => {
       this._handleDrawerChange(event)
     })
 
-    this.addEventListener('x-postpress-drawer-children', ({ detail }) => {
+    this.addEventListener(X_POSTPRESS_DRAWER_CHILDREN, ({ detail }) => {
       this.apiHost = detail.apiHost
       this.featuredPost = detail
     })

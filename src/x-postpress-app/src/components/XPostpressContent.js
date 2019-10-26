@@ -1,9 +1,11 @@
 import { LitElement, css, html } from 'lit-element'
+import { defineCustomElement } from '../utilities'
+
 import 'x-postpress'
 
 export const contentPost = { apiHost: '', title: '', id: '' }
 
-const XPostpressContent = class extends LitElement {
+export class XPostpressContent extends LitElement {
   static get styles() {
     return css`
       :host {
@@ -46,8 +48,4 @@ const XPostpressContent = class extends LitElement {
   }
 }
 
-if (!customElements.get('x-postpress-content')) {
-  customElements.define('x-postpress-content', XPostpressContent)
-}
-
-export default XPostpressContent
+defineCustomElement('x-postpress-content', XPostpressContent)
