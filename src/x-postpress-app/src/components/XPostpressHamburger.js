@@ -1,5 +1,4 @@
 import { LitElement, css, html } from 'lit-element'
-import '@material/mwc-button'
 import '@polymer/paper-icon-button'
 import '@polymer/iron-icons'
 
@@ -13,8 +12,6 @@ const XPostpressHamburger = class extends LitElement {
       }
 
       paper-icon-button {
-        --mdc-theme-primary: #cccccc;
-        --mdc-theme-on-primary: white;
         pointer-events: all;
         position: relative;
         height: 3rem;

@@ -2,4 +2,4 @@
 
 ## About
 
-An app using [x-postpress](https://github.com/kherrick/x-postpress) that displays the current postpress and forecast.
+An app using [x-postpress](https://github.com/kherrick/x-postpress).

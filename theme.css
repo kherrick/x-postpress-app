@@ -16,7 +16,13 @@ x-postpress-app {
   --article-gallery-display: flex;
   --article-gallery-item-flex: auto;
   --article-gallery-item-margin: 0;
+
   --h1-font-size: 1.5rem;
   --img-padding-top: 2rem;
   --ul-list-style-type: none;
+
+  --primary-background-color: #111;
+  --primary-foreground-color: #fff;
+  --primary-text-color: #111;
+  --drawer-scrim-background: rgba(0, 0, 0, 0.8);
 }

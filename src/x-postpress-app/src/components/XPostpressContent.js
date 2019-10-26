@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit-element'
-
 import 'x-postpress'
+
+export const contentPost = { apiHost: '', title: '', id: '' }
 
 const XPostpressContent = class extends LitElement {
   static get styles() {
@@ -10,7 +11,7 @@ const XPostpressContent = class extends LitElement {
       }
 
       header {
-        font-size: var(--x-postpress-content-forecast-header-font-size, 1.5rem);
+        font-size: var(--x-postpress-content-header-font-size, 1.5rem);
         margin-bottom: 1rem;
         text-align: center;
       }
@@ -19,30 +20,26 @@ const XPostpressContent = class extends LitElement {
 
   static get properties() {
     return {
-      apiHost: {
-        type: String,
-        reflect: true
-      },
-      featuredPost: {
+      contentPost: {
         reflect: false,
         type: Object
       },
     }
   }
+
   constructor() {
     super()
 
-    this.featuredPost = { title: '', id: '' }
+    this.contentPost = contentPost
   }
-
 
   render() {
     return html`
       <x-postpress
-        apiHost="${this.apiHost}"
-        removeArticleHeaderLinkSubDomain="true"
+        ?removeArticleHeaderLinkSubDomain=${true}
+        apiHost=${this.contentPost.apiHost}
         articleHeaderLinkSubDomain="content"
-        include="${this.featuredPost.id}"
+        include="${this.contentPost.id}"
       >
       </x-postpress>
     `

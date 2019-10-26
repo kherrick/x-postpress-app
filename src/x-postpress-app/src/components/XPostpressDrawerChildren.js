@@ -1,41 +1,33 @@
 import { LitElement, css, html } from 'lit-element'
-import '@material/mwc-button'
+import '@polymer/paper-listbox/paper-listbox'
+import '@polymer/paper-item/paper-item'
 
 const XPostpressDrawerChildren = class extends LitElement {
   static get styles() {
     return css`
-      div {
-        background-color: #111111;
-        color: #cccccc;
+      .drawer-container {
+        --paper-listbox-color: var(--primary-foreground-color, #fff);
+
+        background-color: var(--primary-background-color, #000);
+        color: var(--primary-foreground-color, #fff);
         height: 100%;
-        overflow: auto;
       }
 
-      [sidebarButton] {
-        --mdc-theme-on-primary: #111111;
-        --mdc-theme-primary: #cccccc;
-
-        margin-top: 1rem;
-        width: 100%;
-      }
-
-      [sidebarButton]:hover {
-        text-decoration: underline;
-      }
-
-      h1 {
+      .drawer-header {
         font-size: 1.5rem;
-        color: #ddd;
+        padding: 1rem;
       }
 
-      ul {
-        list-style-type: none;
-        padding: 0 1rem 0 1rem;
+      paper-list-item {
+        margin-bottom: 1rem;
       }
 
-      ul > li ul > li {
-        list-style-type: none;
-        margin-left: -0.5rem;
+      .sidebar-link {
+        margin-bottom: 0.5rem;
+      }
+
+      .sidebar-link:hover {
+        cursor: pointer;
       }
     `
   }
@@ -50,13 +42,14 @@ const XPostpressDrawerChildren = class extends LitElement {
     )
   }
 
-  _handleMenuFeaturedPostChange(featuredPost) {
+  _handleMenuFeaturedPostChange({ contentPost }) {
+
     return event => {
       this.shadowRoot.dispatchEvent(
         new CustomEvent('x-postpress-drawer-children', {
           bubbles: true,
           composed: true,
-          detail: featuredPost
+          detail: contentPost
         })
       )
 
@@ -64,38 +57,105 @@ const XPostpressDrawerChildren = class extends LitElement {
     }
   }
 
-  get featuredPosts() {
+  get featuredPostsGroup() {
     return [
       {
-        title: 'Post 1',
-        id: '4875',
+        apiHost: 'https://content.karlherrick.com',
+        content: [
+          {
+            id: '4875',
+            title: 'React, Redux, and using the WordPress REST API'
+          },
+          {
+            id: '4775',
+            title: 'Playing around with the GoPiGo'
+          },
+          {
+            id: '1928',
+            title: 'Pi Motion - Single Page App'
+          },
+          {
+            id: '1897',
+            title: 'HipChat bot on AWS'
+          },
+          {
+            id: '1819',
+            title: '2048 on a Touchscreen Raspberry Pi'
+          },
+          {
+            id: '1330',
+            title: 'Observations on HTML'
+          },
+          {
+            id: '292',
+            title: 'Budget Wireless Distribution'
+          },
+          {
+            id: '199',
+            title: 'WDS Bridging Experiences'
+          },
+          {
+            id: '88',
+            title: 'Woktenna'
+          }
+        ]
       }
     ]
   }
 
+  get featuredPhotos() {
+    return [
+      {
+        apiHost: 'https://herrickdesign.com',
+        content: [
+          {
+            id: '2793',
+            title: 'Fireworks'
+          }, {
+            id: '2634',
+            title: 'Skyline Sunset'
+          }, {
+            id: '2627',
+            title: 'Icy River'
+          }, {
+            id: '2482',
+            title: 'Architecture'
+          }, {
+            id: '2331',
+            title: 'Walk up Woodward'
+          }
+        ]
+      }
+    ]
+  }
+
+  getPostsGroupSidebarSection(postsGroup) {
+    return html`
+      <paper-listbox>
+        ${postsGroup.map(posts =>
+          posts.content.map(content =>
+            html`
+              <div
+                class="sidebar-link"
+                @click="${this._handleMenuFeaturedPostChange({ contentPost: { apiHost: posts.apiHost, ...content }})}"
+              >
+                <paper-item>${content.title}</paper-item>
+              </div>
+            `)
+          )
+        }
+      </paper-listbox>
+    `
+  }
+
   render() {
     return html`
-      <div>
-        <ul>
-          <li>
-            <h1>Featured Posts</h1>
-            <div>
-              <ul>
-                ${this.featuredPosts.map(
-                  featuredPost => html`
-                    <li>
-                      <mwc-button
-                        @click="${this._handleMenuFeaturedPostChange(featuredPost)}"
-                        label=${featuredPost.title}
-                        sidebarButton
-                      ></mwc-button>
-                    </li>
-                  `
-                )}
-              </ul>
-            </div>
-          </li>
-        </ul>
+      <div class="drawer-container">
+        <div class="drawer-header">Featured Posts</div>
+        ${this.getPostsGroupSidebarSection(this.featuredPostsGroup)}
+
+        <div class="drawer-header">Featured Photos</div>
+        ${this.getPostsGroupSidebarSection(this.featuredPhotos)}
       </div>
     `
   }

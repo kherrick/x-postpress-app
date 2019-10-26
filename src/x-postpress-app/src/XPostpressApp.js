@@ -6,36 +6,38 @@ import '@polymer/app-layout/app-toolbar/app-toolbar'
 
 import './components/XPostpressHamburger'
 import './components/XPostpressBranding'
-import './components/XPostpressContent'
+import { contentPost } from './components/XPostpressContent'
 import './components/XPostpressDrawerChildren'
 
 import { store } from './store/configureStore'
 import { connectRouter, navigate } from 'lit-redux-router'
 connectRouter(store)
 
+import './components/XPostpressCounter'
+
 export class XPostpressApp extends LitElement {
   static get styles() {
     return css`
       app-header {
-        background-color: #000;
-        color: #fff;
+        background-color: var(--primary-background-color, #000);
+        color: var(--primary-foreground-color, #fff);
 
         --app-header-background-front-layer: {
-          background-color: #000;
+          background-color: var(--primary-background-color, #000);
         }
 
         --app-header-background-rear-layer: {
-          background-color: #000;
+          background-color: var(--primary-background-color, #000);
         }
       }
 
       app-toolbar {
-        background-color: #000;
+        background-color: var(--primary-background-color, #000);
         font-size: 1.5rem;
       }
 
       app-drawer {
-        --app-drawer-scrim-background: rgba(0, 0, 0, 0.8);
+        --app-drawer-scrim-background: var(--drawer-scrim-background, rgba(0, 0, 0, 0.8));
       }
 
       x-postpress-hamburger {
@@ -68,7 +70,7 @@ export class XPostpressApp extends LitElement {
   constructor() {
     super()
 
-    this.featuredPost = { title: '', id: '' }
+    this.featuredPost = contentPost
   }
 
   _handleDrawerChange(event) {
@@ -84,11 +86,16 @@ export class XPostpressApp extends LitElement {
   }
 
   firstUpdated() {
+    this.featuredPost = {
+      apiHost: this.apiHost
+    }
+
     this.addEventListener('x-postpress-drawer-change', event => {
       this._handleDrawerChange(event)
     })
 
     this.addEventListener('x-postpress-drawer-children', ({ detail }) => {
+      this.apiHost = detail.apiHost
       this.featuredPost = detail
     })
   }
@@ -110,13 +117,11 @@ export class XPostpressApp extends LitElement {
         <lit-route
           path="*/counter"
           component="x-postpress-counter"
-          .resolve="${() => import('./components/XPostpressCounter')}"
         ></lit-route>
 
-        <lit-route path="^\/$|^\/dev$|^\/x-postpress-app\/$">
+        <lit-route path="^\/$|^\/dev$|^\/dev\/$|^\/x-postpress-app\/$">
           <x-postpress-content
-            apiHost="${this.apiHost}"
-            featuredPost="${JSON.stringify(this.featuredPost)}"
+            contentPost="${JSON.stringify(this.featuredPost)}"
           ></x-postpress-content>
 
           <button @click=${() => store.dispatch(navigate(`${window.location.pathname}/counter`))}>load counter</button>
