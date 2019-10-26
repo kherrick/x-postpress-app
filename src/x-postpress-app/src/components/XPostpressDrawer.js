@@ -4,10 +4,13 @@ import '@polymer/paper-item/paper-item'
 
 import {
   XPostpressDrawerChange,
-  XPostpressDrawerChildren as XPostpressDrawerChildrenEvent
+  XPostpressDrawer as XPostpressDrawerEvent
 } from '../events/events'
 
-const XPostpressDrawerChildren = class extends LitElement {
+import { navigate } from 'lit-redux-router'
+import { store } from '../store/configureStore'
+
+const XPostpressDrawer = class extends LitElement {
   static get styles() {
     return css`
       .drawer-container {
@@ -16,6 +19,16 @@ const XPostpressDrawerChildren = class extends LitElement {
         background-color: var(--primary-background-color, #000);
         color: var(--primary-foreground-color, #fff);
         height: 100%;
+
+        /* scroll without scrollbars */
+        overflow: auto;
+        -ms-overflow-style: none;  // IE 10+
+        scrollbar-width: none;     // Firefox
+      }
+
+      /* scroll without scrollbars */
+      .drawer-container::-webkit-scrollbar {
+        display: none;             // Safari and Chrome
       }
 
       .drawer-header {
@@ -40,7 +53,7 @@ const XPostpressDrawerChildren = class extends LitElement {
   _handleMenuFeaturedPostChange({ contentPost }) {
     return event => {
       this.shadowRoot.dispatchEvent(
-        XPostpressDrawerChildrenEvent(contentPost)
+        XPostpressDrawerEvent(contentPost)
       )
 
       this.shadowRoot.dispatchEvent(
@@ -148,13 +161,22 @@ const XPostpressDrawerChildren = class extends LitElement {
 
         <div class="drawer-header">Featured Photos</div>
         ${this.getPostsGroupSidebarSection(this.featuredPhotos)}
+
+        <div class="drawer-header">Testing</div>
+        <div class="sidebar-link">
+          <paper-item
+            @click=${() => store.dispatch(navigate(`${window.location.pathname}/counter`))}
+          >
+            Counter
+          </paper-item>
+        </div>
       </div>
     `
   }
 }
 
-if (!customElements.get('x-postpress-drawer-children')) {
-  customElements.define('x-postpress-drawer-children', XPostpressDrawerChildren)
+if (!customElements.get('x-postpress-drawer')) {
+  customElements.define('x-postpress-drawer', XPostpressDrawer)
 }
 
-export default XPostpressDrawerChildren
+export default XPostpressDrawer

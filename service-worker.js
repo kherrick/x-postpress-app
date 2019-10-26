@@ -62,7 +62,7 @@ self.__precacheManifest = [
     "revision": "a9a98abd64a41aeefeb9562f0a835767"
   },
   {
-    "url": "dist/esm/XPostpressDrawerChildren.js",
+    "url": "dist/esm/XPostpressDrawer.js",
     "revision": "4a3bad370a4e79bd2dd2b67342e6121e"
   },
   {

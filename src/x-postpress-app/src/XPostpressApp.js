@@ -6,16 +6,16 @@ import '@polymer/app-layout/app-toolbar/app-toolbar'
 
 import './components/XPostpressBranding'
 import './components/XPostpressCounter'
-import './components/XPostpressDrawerChildren'
+import './components/XPostpressDrawer'
 import './components/XPostpressHamburger'
 
 import { contentPost } from './components/XPostpressContent'
 import './components/XPostpressContent'
 
-import { X_POSTPRESS_DRAWER_CHANGE, X_POSTPRESS_DRAWER_CHILDREN } from './events/events'
+import { X_POSTPRESS_DRAWER_TOGGLE, X_POSTPRESS_DRAWER_POST_SELECT } from './events/events'
 
 import { store } from './store/configureStore'
-import { connectRouter, navigate } from 'lit-redux-router'
+import { connectRouter } from 'lit-redux-router'
 connectRouter(store)
 
 export class XPostpressApp extends LitElement {
@@ -76,7 +76,7 @@ export class XPostpressApp extends LitElement {
     this.featuredPost = contentPost
   }
 
-  _handleDrawerChange(event) {
+  _handleDrawerToggle(event) {
     const appDrawer = this.shadowRoot.querySelector('app-drawer')
 
     if (appDrawer.getAttribute('opened') === '') {
@@ -93,11 +93,11 @@ export class XPostpressApp extends LitElement {
       apiHost: this.apiHost
     }
 
-    this.addEventListener(X_POSTPRESS_DRAWER_CHANGE, event => {
-      this._handleDrawerChange(event)
+    this.addEventListener(X_POSTPRESS_DRAWER_TOGGLE, event => {
+      this._handleDrawerToggle(event)
     })
 
-    this.addEventListener(X_POSTPRESS_DRAWER_CHILDREN, ({ detail }) => {
+    this.addEventListener(X_POSTPRESS_DRAWER_POST_SELECT, ({ detail }) => {
       this.apiHost = detail.apiHost
       this.featuredPost = detail
     })
@@ -113,7 +113,7 @@ export class XPostpressApp extends LitElement {
       </app-header>
 
       <app-drawer swipe-open>
-        <x-postpress-drawer-children></x-postpress-drawer-children>
+        <x-postpress-drawer></x-postpress-drawer>
       </app-drawer>
 
       <div class="app-content">
@@ -126,8 +126,6 @@ export class XPostpressApp extends LitElement {
           <x-postpress-content
             contentPost="${JSON.stringify(this.featuredPost)}"
           ></x-postpress-content>
-
-          <button @click=${() => store.dispatch(navigate(`${window.location.pathname}/counter`))}>load counter</button>
         </lit-route>
 
         <lit-route><h1>404 Not found</h1></lit-route>
