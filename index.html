@@ -24,7 +24,7 @@
   <script type="module">
     import registerServiceWorker from './service-worker/registerServiceWorker.js'
 
-    registerServiceWorker(document.querySelector('base').href.slice(0, -1))
+    registerServiceWorker(document.querySelector('base').href.replace(/\/$/, ''))
   </script>
 </body>
 

@@ -3,9 +3,6 @@ export default {
   router: {
     activeRoute: "/",
     routes: {
-      "^/$|^/dev$": {
-        "active": true, "params": {}
-      }
     }
   }
 }

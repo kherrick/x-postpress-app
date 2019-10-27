@@ -39,7 +39,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.1.2",
-    "x-postpress": "git+https://github.com/kherrick/x-postpress.git#semver:^3.0.0-alpha.2"
+    "x-postpress": "git+https://github.com/kherrick/x-postpress.git#semver:^3.0.0-alpha.3"
   },
   "devDependencies": {
     "es-dev-server": "^1.18.3",

@@ -11,12 +11,15 @@ import './components/XPostpressHamburger'
 
 import { contentPost } from './components/XPostpressContent'
 import './components/XPostpressContent'
+import './components/XPostpressSinglePost'
 
 import { X_POSTPRESS_DRAWER_TOGGLE, X_POSTPRESS_DRAWER_POST_SELECT } from './events/events'
 
 import { store } from './store/configureStore'
-import { connectRouter } from 'lit-redux-router'
+import { connectRouter, navigate } from 'lit-redux-router'
 connectRouter(store)
+
+export const getBasePathWithTrailingSlash = () => `${new URL(document.querySelector('base').href).pathname}/`.replace(/\/+\//g, '/')
 
 export class XPostpressApp extends LitElement {
   static get styles() {
@@ -52,8 +55,8 @@ export class XPostpressApp extends LitElement {
   static get properties() {
     return {
       apiHost: {
+        reflect: true,
         type: String,
-        reflect: true
       },
       featuredPost: {
         reflect: false,
@@ -98,12 +101,18 @@ export class XPostpressApp extends LitElement {
     })
 
     this.addEventListener(X_POSTPRESS_DRAWER_POST_SELECT, ({ detail }) => {
+      const navurl = `${getBasePathWithTrailingSlash()}${detail.path}/${detail.slug}/`
+
+      store.dispatch(navigate(navurl))
+
       this.apiHost = detail.apiHost
       this.featuredPost = detail
     })
   }
 
   render() {
+    const basePathWithTrailingSlash = getBasePathWithTrailingSlash()
+
     return html`
       <app-header reveals>
         <app-toolbar>
@@ -118,14 +127,20 @@ export class XPostpressApp extends LitElement {
 
       <div class="app-content">
         <lit-route
-          path="*/counter"
+          path="${basePathWithTrailingSlash}counter"
           component="x-postpress-counter"
         ></lit-route>
-
-        <lit-route path="^\/$|^\/dev$|^\/dev\/$|^\/x-postpress-app\/$">
+        <lit-route path="${basePathWithTrailingSlash}">
           <x-postpress-content
             contentPost="${JSON.stringify(this.featuredPost)}"
           ></x-postpress-content>
+        </lit-route>
+        <lit-route
+          path="${basePathWithTrailingSlash}:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:article"
+        >
+          <x-postpress-content-single-post
+            contentPost="${JSON.stringify(this.featuredPost)}"
+          ></x-postpress-content-single-post>
         </lit-route>
 
         <lit-route><h1>404 Not found</h1></lit-route>
