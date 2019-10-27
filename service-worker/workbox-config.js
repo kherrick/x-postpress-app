@@ -28,13 +28,41 @@ module.exports = {
       }
     },
     {
+      urlPattern: new RegExp('^https://content.karlherrick.com/.*$'),
+      handler: 'NetworkFirst',
+      options: {
+        cacheableResponse: {
+          statuses: [0, 200]
+        },
+        cacheName: 'content-karlherrick-com-cache',
+        expiration: {
+          maxEntries: 1000,
+          maxAgeSeconds: 365 * 24 * 60 * 60 // 365 days
+        }
+      }
+    },
+    {
+      urlPattern: new RegExp('^https://herrickdesign.com/.*$'),
+      handler: 'NetworkFirst',
+      options: {
+        cacheableResponse: {
+          statuses: [0, 200]
+        },
+        cacheName: 'herrickdesign-com-cache',
+        expiration: {
+          maxEntries: 1000,
+          maxAgeSeconds: 365 * 24 * 60 * 60 // 365 days
+        }
+      }
+    },
+    {
       urlPattern: new RegExp('^https://cdn.jsdelivr.net/.*$'),
       handler: 'CacheFirst',
       options: {
         cacheableResponse: {
           statuses: [0, 200]
         },
-        cacheName: 'cdn-jsdeliver-cache',
+        cacheName: 'cdn-jsdeliver-net-cache',
         expiration: {
           maxEntries: 1000,
           maxAgeSeconds: 365 * 24 * 60 * 60 // 365 days
@@ -48,7 +76,7 @@ module.exports = {
         cacheableResponse: {
           statuses: [0, 200]
         },
-        cacheName: 'rawgit-cache',
+        cacheName: 'rawgit-com-cache',
         expiration: {
           maxEntries: 1000,
           maxAgeSeconds: 365 * 24 * 60 * 60 // 365 days
@@ -62,7 +90,7 @@ module.exports = {
         cacheableResponse: {
           statuses: [0, 200]
         },
-        cacheName: 'unpkg-cache',
+        cacheName: 'unpkg-com-cache',
         expiration: {
           maxEntries: 1000,
           maxAgeSeconds: 365 * 24 * 60 * 60 // 365 days
