@@ -9,9 +9,10 @@ import './components/XPostpressCounter'
 import './components/XPostpressDrawer'
 import './components/XPostpressHamburger'
 
-import { contentPost } from './components/XPostpressContent'
-import './components/XPostpressContent'
+import './components/XPostpressMultiPost'
 import './components/XPostpressSinglePost'
+
+import { getBasePathWithTrailingSlash } from './utilities'
 
 import { X_POSTPRESS_DRAWER_TOGGLE, X_POSTPRESS_DRAWER_POST_SELECT } from './events/events'
 
@@ -19,9 +20,9 @@ import { store } from './store/configureStore'
 import { connectRouter, navigate } from 'lit-redux-router'
 connectRouter(store)
 
-export const getBasePathWithTrailingSlash = () => `${new URL(document.querySelector('base').href).pathname}/`.replace(/\/+\//g, '/')
-
 export class XPostpressApp extends LitElement {
+  _path = getBasePathWithTrailingSlash()
+
   static get styles() {
     return css`
       app-header {
@@ -58,10 +59,6 @@ export class XPostpressApp extends LitElement {
         reflect: true,
         type: String,
       },
-      featuredPost: {
-        reflect: false,
-        type: Object
-      },
       siteTitle: {
         reflect: false,
         type: String
@@ -73,13 +70,7 @@ export class XPostpressApp extends LitElement {
     }
   }
 
-  constructor() {
-    super()
-
-    this.featuredPost = contentPost
-  }
-
-  _handleDrawerToggle(event) {
+  _handleDrawerToggle() {
     const appDrawer = this.shadowRoot.querySelector('app-drawer')
 
     if (appDrawer.getAttribute('opened') === '') {
@@ -92,26 +83,19 @@ export class XPostpressApp extends LitElement {
   }
 
   firstUpdated() {
-    this.featuredPost = {
-      apiHost: this.apiHost
-    }
-
     this.addEventListener(X_POSTPRESS_DRAWER_TOGGLE, event => {
       this._handleDrawerToggle(event)
     })
 
     this.addEventListener(X_POSTPRESS_DRAWER_POST_SELECT, ({ detail }) => {
-      const navurl = `${getBasePathWithTrailingSlash()}${detail.path}/${detail.slug}/`
+      const navurl = `${this._path}${detail.path}/${detail.slug}/`
 
       store.dispatch(navigate(navurl))
-
-      this.apiHost = detail.apiHost
-      this.featuredPost = detail
     })
   }
 
   render() {
-    const basePathWithTrailingSlash = getBasePathWithTrailingSlash()
+    const singlePostPath = `${this._path}:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:article`
 
     return html`
       <app-header reveals>
@@ -126,22 +110,9 @@ export class XPostpressApp extends LitElement {
       </app-drawer>
 
       <div class="app-content">
-        <lit-route
-          path="${basePathWithTrailingSlash}counter"
-          component="x-postpress-counter"
-        ></lit-route>
-        <lit-route path="${basePathWithTrailingSlash}">
-          <x-postpress-content
-            contentPost="${JSON.stringify(this.featuredPost)}"
-          ></x-postpress-content>
-        </lit-route>
-        <lit-route
-          path="${basePathWithTrailingSlash}:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:article"
-        >
-          <x-postpress-content-single-post
-            contentPost="${JSON.stringify(this.featuredPost)}"
-          ></x-postpress-content-single-post>
-        </lit-route>
+        <lit-route component="x-postpress-counter" path="${this._path}counter"></lit-route>
+        <lit-route component="x-postpress-multi-post" path="${this._path}"></lit-route>
+        <lit-route component="x-postpress-single-post" path=${singlePostPath}></lit-route>
 
         <lit-route><h1>404 Not found</h1></lit-route>
       </div>

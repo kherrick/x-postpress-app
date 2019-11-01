@@ -30,3 +30,18 @@ export const defineCustomElement = (tagName, element) => {
     customElements.define(tagName, element)
   }
 }
+
+export const lookupSlugFromConfig = (slug, config) => {
+  let contentPost = undefined
+
+  config.sites.find(site => site.content.find(content => {
+    if (content.slug === slug) {
+      contentPost = [ { apiHost: site.apiHost, content }]
+    }
+  }))
+
+  return contentPost
+}
+
+export const getBasePathWithTrailingSlash = () =>
+  `${new URL(document.querySelector('base').href).pathname}/`.replace(/\/+\//g, '/')

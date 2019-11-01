@@ -1,9 +1,10 @@
 import { LitElement, css, html } from 'lit-element'
-import { defineCustomElement } from '../utilities'
+import { defineCustomElement, lookupSlugFromConfig } from '../utilities'
+import config from '../config'
+
+import { contentPost } from './XPostpressContent'
 
 import 'x-postpress'
-
-export const contentPost = { apiHost: '', title: '', id: '' }
 
 export class XPostpressSinglePost extends LitElement {
   static get styles() {
@@ -30,17 +31,27 @@ export class XPostpressSinglePost extends LitElement {
       contentPost: {
         reflect: false,
         type: Object
-      },
+      }
     }
   }
 
   constructor() {
     super()
+
     this.contentPost = contentPost
   }
 
+  firstUpdated() {
+    const match = window.location.pathname.match(/\/([a-z0-9_-]*[\/]?)$/)
+    const replace = match ? match[0].replace(/\//g, '') : ''
+    const { apiHost, content } = lookupSlugFromConfig(replace, config)[0]
+
+    this.contentPost = { apiHost, id: content.id, title: content.title }
+  }
+
   render() {
-    return html`
+    return Object.entries(this.contentPost).length > 0
+     ? html`
       <x-postpress
         ?removeArticleHeaderLinkSubDomain=${true}
         apiHost=${this.contentPost.apiHost}
@@ -48,8 +59,8 @@ export class XPostpressSinglePost extends LitElement {
         include="${this.contentPost.id}"
       >
       </x-postpress>
-    `
+    ` : ''
   }
 }
 
-defineCustomElement('x-postpress-content-single-post', XPostpressSinglePost)
+defineCustomElement('x-postpress-single-post', XPostpressSinglePost)
