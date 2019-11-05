@@ -38,7 +38,7 @@ const XPostpressHamburger = class extends LitElement {
     return html`
       <paper-icon-button
         @click="${event => this._handleHamburgerClick(event)}"
-        aria-label="Featured Cities"
+        aria-label="Featured Posts"
         icon="menu"
       ></paper-icon-button>
     `

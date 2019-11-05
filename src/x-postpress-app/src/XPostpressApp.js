@@ -54,10 +54,6 @@ export class XPostpressApp extends LitElement {
 
   static get properties() {
     return {
-      apiHost: {
-        reflect: true,
-        type: String,
-      },
       siteTitle: {
         reflect: false,
         type: String
