@@ -10,7 +10,6 @@ import './components/XPostpressDrawer'
 import './components/XPostpressHamburger'
 
 import './components/XPostpressMultiPost'
-import './components/XPostpressSinglePost'
 
 import { getBasePathWithTrailingSlash } from './utilities'
 
@@ -95,8 +94,6 @@ export class XPostpressApp extends LitElement {
   }
 
   render() {
-    const singlePostPath = `${this._path}:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:article`
-
     return html`
       <app-header reveals>
         <app-toolbar>
@@ -110,10 +107,15 @@ export class XPostpressApp extends LitElement {
       </app-drawer>
 
       <div class="app-content">
-        <lit-route component="x-postpress-counter" path="${this._path}counter"></lit-route>
+        <lit-route component="x-postpress-multi-post" path="${this._path}index.html"></lit-route>
         <lit-route component="x-postpress-multi-post" path="${this._path}"></lit-route>
-        <lit-route component="x-postpress-single-post" path=${singlePostPath}></lit-route>
+        <lit-route
+          .resolve="${() => import('./components/XPostpressSinglePost.js')}"
+          component="x-postpress-single-post"
+          path="${this._path}:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:article"
+        ></lit-route>
 
+        <lit-route component="x-postpress-counter" path="${this._path}counter"></lit-route>
         <lit-route><h1>404 Not found</h1></lit-route>
       </div>
     `
