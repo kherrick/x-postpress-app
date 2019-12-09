@@ -2,7 +2,7 @@ const WORKBOX_CONFIG_PATH = process.env.WORKBOX_CONFIG_PATH || '/'
 
 module.exports = {
   globDirectory: './',
-  globPatterns: ['**/*.{js,png,ico,html}'],
+  globPatterns: ['**/*.{css,js,png,ico,html}'],
   globIgnores: ['**/node_modules/**/*', '**/service-worker.js', 'dev/**', 'src/**', 'rollup.config.js'],
   templatedURLs: {
     [`${WORKBOX_CONFIG_PATH}`]: `${new Date()}`

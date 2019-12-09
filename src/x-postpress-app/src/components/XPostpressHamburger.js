@@ -2,14 +2,14 @@ import { LitElement, css, html } from 'lit-element'
 import '@polymer/paper-icon-button'
 import '@polymer/iron-icons'
 
-import { XPostpressDrawerChange } from '../events/events'
+import { XPostpressDrawerToggle } from '../events/events'
 
 const XPostpressHamburger = class extends LitElement {
   static get styles() {
     return css`
       :host {
         display: block;
-
+        color: var(--x-postpress-hamburger-color, #eee);
         width: 1.5rem;
       }
 
@@ -30,7 +30,7 @@ const XPostpressHamburger = class extends LitElement {
 
   _handleHamburgerClick(event) {
     this.shadowRoot.dispatchEvent(
-      XPostpressDrawerChange(event)
+      XPostpressDrawerToggle(event)
     )
   }
 

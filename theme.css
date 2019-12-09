@@ -1,7 +1,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #fff;
 }
 
 body {
@@ -20,9 +19,56 @@ x-postpress-app {
   --h1-font-size: 1.5rem;
   --img-padding-top: 2rem;
   --ul-list-style-type: none;
+}
 
-  --primary-background-color: #111;
-  --primary-foreground-color: #fff;
-  --primary-text-color: #111;
+.theme-light body {
+  background-color: #fff;
+
+  color: #000;
+}
+
+.theme-dark body {
+  background-color: #111;
+
+  color: #aaa;
+}
+
+.theme-light x-postpress-app {
+  background-color: #fff;
+
+  --a-color: #000;
+  --x-postpress-branding-text-color: #eee;
+  --x-postpress-drawer-header-color: #eee;
+  --x-postpress-drawer-header-background-color: #111;
+  --x-postpress-app-toolbar-background-color: #111;
   --drawer-scrim-background: rgba(0, 0, 0, 0.8);
+  --paper-dropdown-menu-color: #000;
+  --paper-dropdown-menu-focused-color: #000;
+  --paper-listbox-background-color: #fff;
+  --primary-background-color: #fff;
+  --primary-color: #000;
+  --primary-foreground-color: #111;
+  --primary-text-color: #111;
+  --secondary-text-color: #000;
+  --text-color: #111;
+}
+
+.theme-dark x-postpress-app {
+  background-color: #000;
+
+  --a-color: #fff;
+  --x-postpress-branding-text-color: #fff;
+  --x-postpress-drawer-header-color: #eee;
+  --x-postpress-drawer-header-background-color: #000;
+  --x-postpress-app-toolbar-background-color: #000;
+  --drawer-scrim-background: rgba(0, 0, 0, 0.8);
+  --paper-dropdown-menu-color: #fff;
+  --paper-dropdown-menu-focused-color: #fff;
+  --paper-listbox-background-color: #111;
+  --primary-background-color: #000;
+  --primary-color: #fff;
+  --primary-foreground-color: #eee;
+  --primary-text-color: #eee;
+  --secondary-text-color: #fff;
+  --text-color: #eee;
 }

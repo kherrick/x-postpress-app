@@ -11,7 +11,7 @@ const XPostpressBranding = class extends LitElement {
 
       a {
         text-decoration: none;
-        color: white;
+        color: var(--x-postpress-branding-text-color, #000);
       }
     `
   }

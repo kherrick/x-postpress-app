@@ -25,20 +25,12 @@ export class XPostpressApp extends LitElement {
   static get styles() {
     return css`
       app-header {
-        background-color: var(--primary-background-color, #000);
-        color: var(--primary-foreground-color, #fff);
-
-        --app-header-background-front-layer: {
-          background-color: var(--primary-background-color, #000);
-        }
-
-        --app-header-background-rear-layer: {
-          background-color: var(--primary-background-color, #000);
-        }
+        background-color: var(--primary-background-color, #111);
+        color: var(--primary-foreground-color, #eee);
       }
 
       app-toolbar {
-        background-color: var(--primary-background-color, #000);
+        background-color: var(--x-postpress-app-toolbar-background-color, #111);
         font-size: 1.5rem;
       }
 
@@ -65,10 +57,10 @@ export class XPostpressApp extends LitElement {
     }
   }
 
-  _handleDrawerToggle() {
+  _handleDrawerToggle(close = false) {
     const appDrawer = this.shadowRoot.querySelector('app-drawer')
 
-    if (appDrawer.getAttribute('opened') === '') {
+    if (appDrawer.getAttribute('opened') === '' || close === true) {
       appDrawer.removeAttribute('opened')
 
       return
@@ -78,8 +70,8 @@ export class XPostpressApp extends LitElement {
   }
 
   firstUpdated() {
-    this.addEventListener(X_POSTPRESS_DRAWER_TOGGLE, event => {
-      this._handleDrawerToggle(event)
+    this.addEventListener(X_POSTPRESS_DRAWER_TOGGLE, ({ detail }) => {
+      this._handleDrawerToggle(detail)
     })
 
     this.addEventListener(X_POSTPRESS_DRAWER_POST_SELECT, ({ detail }) => {

@@ -1,14 +1,14 @@
-export const X_POSTPRESS_DRAWER_TOGGLE = 'x-postpress-drawer-change'
+export const X_POSTPRESS_DRAWER_TOGGLE = 'x-postpress-drawer-toggle'
 export const X_POSTPRESS_DRAWER_POST_SELECT = 'x-postpress-drawer-post-select'
 
-export const XPostpressDrawerChange = event =>
+export const XPostpressDrawerToggle = (close = false) =>
   new CustomEvent(X_POSTPRESS_DRAWER_TOGGLE, {
     bubbles: true,
     composed: true,
-    detail: event
+    detail: close
   })
 
-export const XPostpressDrawer = contentPost =>
+export const XPostpressDrawerPostSelect = contentPost =>
   new CustomEvent(X_POSTPRESS_DRAWER_POST_SELECT, {
     bubbles: true,
     composed: true,
