@@ -1,16 +1,20 @@
-import { LitElement, html } from 'lit-element'
+import { css, html, LitElement } from 'lit-element'
 import { defineCustomElement } from '../utilities'
 
 export class XPostpressObserver extends LitElement {
-  firstUpdated() {
-    let target = null
+  static get styles() {
+    return css`
+      #target {
+        height: var(--x-postpress-observer-height);
+      }
+    `
+  }
 
-    if (this.shadowRoot) {
-      target = this.shadowRoot.querySelector('#target')
-    }
+  firstUpdated() {
+    const target = this.shadowRoot.querySelector('#target')
 
     const options = {
-      //root,
+      root: null,
       rootMargin: '0px',
       threshold: 1.0
     }
@@ -20,21 +24,17 @@ export class XPostpressObserver extends LitElement {
         if (entry.isIntersecting) {
           const eventType = 'x-postpress-observer-intersecting'
 
-          if (target) {
-            target.dispatchEvent(new Event(eventType, { bubbles: true, composed: true }))
-          }
+          target.dispatchEvent(new Event(eventType, { bubbles: true, composed: true }))
         }
       })
     }, options)
 
-    if (target) {
-      observer.observe(target)
-    }
+    observer.observe(target)
   }
 
   render() {
     return html`
-      <div id="target"></div>
+      <div id="target"><slot></slot></div>
     `
   }
 }

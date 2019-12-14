@@ -9,6 +9,8 @@ import { getBasePathWithTrailingSlash } from '../utilities'
 import config from '../config'
 
 const XPostpressDrawer = class extends LitElement {
+  _path = getBasePathWithTrailingSlash()
+
   static get styles() {
     return css`
       .drawer-container {
@@ -21,12 +23,12 @@ const XPostpressDrawer = class extends LitElement {
         /* scroll without scrollbars */
         overflow: auto;
         -ms-overflow-style: none; /* IE 10+ */
-        scrollbar-width: none;    /* Firefox */
+        scrollbar-width: none; /* Firefox */
       }
 
       /* scroll without scrollbars */
       .drawer-container::-webkit-scrollbar {
-        display: none;            /* Safari and Chrome */
+        display: none; /* Safari and Chrome */
       }
 
       .drawer-header {
@@ -51,11 +53,11 @@ const XPostpressDrawer = class extends LitElement {
   }
 
   get featuredPostsGroup() {
-    return [ config.sites[0] ]
+    return [config.sites[0]]
   }
 
   get featuredPhotos() {
-    return [ config.sites[1] ]
+    return [config.sites[1]]
   }
 
   _enableTheme(newTheme = 'light', withTransition = false, persist = true) {
@@ -80,9 +82,7 @@ const XPostpressDrawer = class extends LitElement {
     paperItem.classList.remove('enabled')
     paperItem.setAttribute('aria-pressed', true)
 
-    this.shadowRoot.dispatchEvent(
-      XPostpressDrawerToggle(true)
-    )
+    this.shadowRoot.dispatchEvent(XPostpressDrawerToggle(true))
 
     if (persist) {
       this._persistToStorage('preference-theme', newTheme)
@@ -124,7 +124,7 @@ const XPostpressDrawer = class extends LitElement {
   }
 
   _getThemeFromTime() {
-    const date = new Date
+    const date = new Date()
     const hour = date.getHours()
 
     if (hour > 20 || hour < 5) {
@@ -136,13 +136,9 @@ const XPostpressDrawer = class extends LitElement {
 
   _handleMenuFeaturedPostChange({ contentPost }) {
     return () => {
-      this.shadowRoot.dispatchEvent(
-        XPostpressDrawerPostSelect(contentPost)
-      )
+      this.shadowRoot.dispatchEvent(XPostpressDrawerPostSelect(contentPost))
 
-      this.shadowRoot.dispatchEvent(
-        XPostpressDrawerToggle()
-      )
+      this.shadowRoot.dispatchEvent(XPostpressDrawerToggle())
     }
   }
 
@@ -161,9 +157,7 @@ const XPostpressDrawer = class extends LitElement {
   _navigate(path) {
     navigateByPath(path)
 
-    this.shadowRoot.dispatchEvent(
-      XPostpressDrawerToggle(true)
-    )
+    this.shadowRoot.dispatchEvent(XPostpressDrawerToggle(true))
   }
 
   _persistToStorage(key, value) {
@@ -184,8 +178,7 @@ const XPostpressDrawer = class extends LitElement {
         if (!root.classList.contains('theme-light')) {
           this._enableTheme('light', true)
         }
-      }
-      else {
+      } else {
         if (!root.classList.contains('theme-dark')) {
           this._enableTheme('dark', true)
         }
@@ -197,17 +190,20 @@ const XPostpressDrawer = class extends LitElement {
     return html`
       <paper-listbox>
         ${postsGroup.map(posts =>
-          posts.content.map(content =>
-            html`
-              <div
-                class="sidebar-link"
-                @click="${this._handleMenuFeaturedPostChange({ contentPost: { apiHost: posts.apiHost, ...content }})}"
-              >
-                <paper-item>${content.title}</paper-item>
-              </div>
-            `)
+          posts.content.map(
+            content =>
+              html`
+                <div
+                  class="sidebar-link"
+                  @click="${this._handleMenuFeaturedPostChange({
+                    contentPost: { apiHost: posts.apiHost, ...content }
+                  })}"
+                >
+                  <paper-item>${content.title}</paper-item>
+                </div>
+              `
           )
-        }
+        )}
       </paper-listbox>
     `
   }
@@ -236,12 +232,24 @@ const XPostpressDrawer = class extends LitElement {
         <div class="drawer-header">Featured Photos</div>
         ${this.getPostsGroupSidebarSection(this.featuredPhotos)}
 
+        <div class="drawer-header">Links</div>
+        <paper-listbox>
+          <div class="sidebar-link">
+            <paper-item @click=${() => this._navigate(`/${config.getBouncePath(0)}`)}>
+              x-weather-app
+            </paper-item>
+          </div>
+          <div class="sidebar-link">
+            <paper-item @click=${() => document.location.href='https://infinitym.ca/'}>
+              Panthers' Infinity
+            </paper-item>
+          </div>
+        </paper-listbox>
+
         <div class="drawer-header">Testing</div>
         <paper-listbox>
           <div class="sidebar-link">
-            <paper-item
-              @click=${() => this._navigate(`${getBasePathWithTrailingSlash()}counter`)}
-            >
+            <paper-item @click=${() => this._navigate(`${this._path}counter`)}>
               Counter
             </paper-item>
           </div>

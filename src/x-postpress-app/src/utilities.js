@@ -34,11 +34,13 @@ export const defineCustomElement = (tagName, element) => {
 export const lookupSlugFromConfig = (slug, config) => {
   let contentPost = undefined
 
-  config.sites.find(site => site.content.find(content => {
-    if (content.slug === slug) {
-      contentPost = [ { apiHost: site.apiHost, content }]
-    }
-  }))
+  config.sites.find(site =>
+    site.content.find(content => {
+      if (content.slug === slug) {
+        contentPost = [{ apiHost: site.apiHost, content }]
+      }
+    })
+  )
 
   return contentPost
 }

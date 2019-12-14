@@ -51,15 +51,16 @@ export class XPostpressSinglePost extends LitElement {
 
   render() {
     return Object.entries(this.contentPost).length > 0
-     ? html`
-      <x-postpress
-        ?removeArticleHeaderLinkSubDomain=${true}
-        apiHost=${this.contentPost.apiHost}
-        articleHeaderLinkSubDomain="content"
-        include="${this.contentPost.id}"
-      >
-      </x-postpress>
-    ` : ''
+      ? html`
+          <x-postpress
+            ?removeArticleHeaderLinkSubDomain=${true}
+            apiHost=${this.contentPost.apiHost}
+            articleHeaderLinkSubDomain="content"
+            include="${this.contentPost.id}"
+          >
+          </x-postpress>
+        `
+      : ''
   }
 }
 

@@ -25,7 +25,7 @@ export class XPostpressContent extends LitElement {
       contentPost: {
         reflect: false,
         type: Object
-      },
+      }
     }
   }
 

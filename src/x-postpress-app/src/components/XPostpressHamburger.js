@@ -29,9 +29,7 @@ const XPostpressHamburger = class extends LitElement {
   }
 
   _handleHamburgerClick(event) {
-    this.shadowRoot.dispatchEvent(
-      XPostpressDrawerToggle(event)
-    )
+    this.shadowRoot.dispatchEvent(XPostpressDrawerToggle(event))
   }
 
   render() {

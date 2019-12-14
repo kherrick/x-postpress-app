@@ -11,6 +11,8 @@ import './components/XPostpressHamburger'
 
 import './components/XPostpressMultiPost'
 
+import config from './config'
+
 import { getBasePathWithTrailingSlash } from './utilities'
 
 import { X_POSTPRESS_DRAWER_TOGGLE, X_POSTPRESS_DRAWER_POST_SELECT } from './events/events'
@@ -97,6 +99,11 @@ export class XPostpressApp extends LitElement {
       <div class="app-content">
         <lit-route component="x-postpress-multi-post" path="${this._path}index.html"></lit-route>
         <lit-route component="x-postpress-multi-post" path="${this._path}"></lit-route>
+        <lit-route
+          .resolve="${() => import('./components/XPostpressBouncer.js')}"
+          component="x-postpress-bouncer"
+          path="/${config.getBouncePath(0)}"
+        ></lit-route>
         <lit-route
           .resolve="${() => import('./components/XPostpressSinglePost.js')}"
           component="x-postpress-single-post"

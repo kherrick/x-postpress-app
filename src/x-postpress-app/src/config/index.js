@@ -228,22 +228,26 @@ export default {
           title: 'Fireworks',
           path: '2016/07/04',
           slug: 'detroit-river-fireworks'
-        }, {
+        },
+        {
           id: '2634',
           title: 'Skyline Sunset',
           path: '2016/03/23',
           slug: 'detroit-skyline-sunset'
-        }, {
+        },
+        {
           id: '2627',
           title: 'Icy River',
           path: '2016/01/10',
           slug: 'icy-detroit-river'
-        }, {
+        },
+        {
           id: '2482',
           title: 'Architecture',
           path: '2013/08/22',
           slug: 'architecture-in-detroit'
-        }, {
+        },
+        {
           id: '2331',
           title: 'Walk up Woodward',
           path: '2013/04/22',
@@ -251,5 +255,9 @@ export default {
         }
       ]
     }
-  ]
+  ],
+  getBouncePath: bouncePath => [
+    'x-weather-app/',
+    'x-postpress-app/'
+  ][bouncePath],
 }

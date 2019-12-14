@@ -13,15 +13,13 @@ export class XPostpressSinglePostContainer extends LitElement {
       contentPost: {
         reflect: false,
         type: Object
-      },
+      }
     }
   }
 
   render() {
     return html`
-      <x-postpress-content-single-post
-        .contentPost=${this.contentPost}
-      ></x-postpress-content-single-post>
+      <x-postpress-content-single-post .contentPost=${this.contentPost}></x-postpress-content-single-post>
     `
   }
 }

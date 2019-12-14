@@ -2,6 +2,7 @@ import { LitElement, css, html } from 'lit-element'
 import { defineCustomElement } from '../utilities'
 import config from '../config'
 import { render } from 'lit-html'
+import cloneDeep from 'lodash-es/cloneDeep'
 
 import 'x-postpress'
 import './XPostpressObserver'
@@ -26,13 +27,14 @@ export class XPostpressMultiPost extends LitElement {
     `
   }
 
-  _ids = config.main.ids
+  _ids = []
 
   constructor() {
     super()
 
-    let renderedIds = []
+    let renderedIds = this._ids
 
+    this._ids = cloneDeep(config.main.ids)
 
     this.addEventListener('x-postpress-observer-intersecting', e => {
       const availablePost = this._ids.shift()
