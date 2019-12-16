@@ -14,8 +14,6 @@ const XPostpressDrawer = class extends LitElement {
   static get styles() {
     return css`
       .drawer-container {
-        --paper-listbox-color: var(--primary-foreground-color, #fff);
-
         background-color: var(--primary-background-color, #000);
         color: var(--primary-foreground-color, #fff);
         height: 100%;
@@ -36,10 +34,6 @@ const XPostpressDrawer = class extends LitElement {
         color: var(--x-postpress-drawer-header-color, initial);
         font-size: 1.5rem;
         padding: 1rem;
-      }
-
-      paper-list-item {
-        margin-bottom: 1rem;
       }
 
       .sidebar-link {
@@ -235,13 +229,8 @@ const XPostpressDrawer = class extends LitElement {
         <div class="drawer-header">Links</div>
         <paper-listbox>
           <div class="sidebar-link">
-            <paper-item @click=${() => this._navigate(`/${config.getBouncePath(0)}`)}>
-              x-weather-app
-            </paper-item>
-          </div>
-          <div class="sidebar-link">
-            <paper-item @click=${() => document.location.href='https://infinitym.ca/'}>
-              Panthers' Infinity
+            <paper-item @click=${() => document.location.href='https://infinitym.ca/posts/'}>
+              MCA Infinity Robotics - Posts
             </paper-item>
           </div>
         </paper-listbox>

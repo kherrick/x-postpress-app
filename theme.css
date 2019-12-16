@@ -12,13 +12,16 @@ body {
 }
 
 x-postpress-app {
-  --article-gallery-display: flex;
-  --article-gallery-item-flex: auto;
-  --article-gallery-item-margin: 0;
+  --x-postpress-article-gallery-display: flex;
+  --x-postpress-article-gallery-item-flex: auto;
+  --x-postpress-article-gallery-item-margin: 0;
 
-  --h1-font-size: 1.5rem;
-  --img-padding-top: 2rem;
-  --ul-list-style-type: none;
+  --x-postpress-h1-font-size: 2.25rem;
+  --x-postpress-h1-font-weight: 600;
+  --x-postpress-img-padding-top: 2rem;
+  --x-postpress-li-display: list-item;
+  --x-postpress-ul-list-style-type: disc;
+  --x-postpress-ul-margin: 0 0 0 1rem;
 }
 
 .theme-light body {
@@ -36,15 +39,17 @@ x-postpress-app {
 .theme-light x-postpress-app {
   background-color: #fff;
 
-  --a-color: #000;
-  --x-postpress-branding-text-color: #eee;
-  --x-postpress-drawer-header-color: #eee;
-  --x-postpress-drawer-header-background-color: #111;
+  --x-postpress-a-color: #000;
   --x-postpress-app-toolbar-background-color: #111;
+  --x-postpress-branding-text-color: #eee;
+  --x-postpress-drawer-header-background-color: #111;
+  --x-postpress-drawer-header-color: #eee;
+
   --drawer-scrim-background: rgba(0, 0, 0, 0.8);
   --paper-dropdown-menu-color: #000;
   --paper-dropdown-menu-focused-color: #000;
-  --paper-listbox-background-color: #fff;
+  --paper-listbox-background-color: #222;
+  --paper-listbox-color: #eee;
   --primary-background-color: #fff;
   --primary-color: #000;
   --primary-foreground-color: #111;
@@ -56,11 +61,12 @@ x-postpress-app {
 .theme-dark x-postpress-app {
   background-color: #000;
 
-  --a-color: #fff;
-  --x-postpress-branding-text-color: #fff;
-  --x-postpress-drawer-header-color: #eee;
-  --x-postpress-drawer-header-background-color: #000;
+  --x-postpress-a-color: #fff;
   --x-postpress-app-toolbar-background-color: #000;
+  --x-postpress-branding-text-color: #fff;
+  --x-postpress-drawer-header-background-color: #000;
+  --x-postpress-drawer-header-color: #eee;
+
   --drawer-scrim-background: rgba(0, 0, 0, 0.8);
   --paper-dropdown-menu-color: #fff;
   --paper-dropdown-menu-focused-color: #fff;
