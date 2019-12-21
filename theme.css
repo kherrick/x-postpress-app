@@ -19,6 +19,7 @@ x-postpress-app {
   --x-postpress-h1-font-size: 2.25rem;
   --x-postpress-h1-font-weight: 600;
   --x-postpress-img-padding-top: 2rem;
+  --x-postpress-img-max-width: 100%;
   --x-postpress-li-display: list-item;
   --x-postpress-ul-list-style-type: disc;
   --x-postpress-ul-margin: 0 0 0 1rem;
