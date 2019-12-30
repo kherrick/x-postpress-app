@@ -68,8 +68,8 @@ export class XPostpressMultiPost extends LitElement {
         ?removeArticleHeaderLinkSubDomain=${true}
         apiHost=${config.main.apiHost}
         articleHeaderLinkSubDomain="content"
-        per_page="2"
-        include="5479,5446"
+        per_page="3"
+        include="5545,5479,5446"
       >
       </x-postpress>
 
