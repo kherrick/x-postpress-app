@@ -2,7 +2,6 @@ import { LitElement, css, html } from 'lit-element'
 import { defineCustomElement } from '../utilities'
 import config from '../config'
 import { render } from 'lit-html'
-import cloneDeep from 'lodash-es/cloneDeep'
 
 import 'x-postpress'
 import './XPostpressObserver'
@@ -27,17 +26,43 @@ export class XPostpressMultiPost extends LitElement {
     `
   }
 
-  _ids = []
+  _idsToLazyLoad = []
+
+  _getAllIdsByFetch() {
+    const fetchUrl = `${config.main.apiHost}/wp-json/wp/v2/posts?_fields=id&per_page=`
+
+    let postIds = []
+
+    const recursiveFetch = (index = 1) => {
+      return fetch(`${fetchUrl}${config.main.numberOfPostsPerFetch}&page=${index}`).then(res => {
+        const totalPages = res.headers.get('x-wp-totalpages')
+
+        return res.json().then(posts => {
+          postIds = [ ...postIds, ...posts ]
+
+          if (index < totalPages) {
+            return recursiveFetch(++index)
+          } else {
+           return postIds
+          }
+        })
+      })
+    }
+
+    return recursiveFetch()
+  }
 
   constructor() {
     super()
 
-    let renderedIds = this._ids
+    let renderedIds = []
 
-    this._ids = cloneDeep(config.main.ids)
+    this._getAllIdsByFetch().then(ids => {
+      this._idsToLazyLoad = ids.slice(config.main.numberOfInitialPosts)
+    })
 
     this.addEventListener('x-postpress-observer-intersecting', e => {
-      const availablePost = this._ids.shift()
+      const availablePost = this._idsToLazyLoad.shift()
 
       if (availablePost) {
         renderedIds.push(availablePost)
@@ -49,7 +74,7 @@ export class XPostpressMultiPost extends LitElement {
 
   _renderArticle(include) {
     return html`
-      ${include.map(id => html`
+      ${include.map(({ id }) => html`
         <x-postpress
           ?removeArticleHeaderLinkSubDomain=${true}
           apiHost=${config.main.apiHost}
@@ -68,8 +93,7 @@ export class XPostpressMultiPost extends LitElement {
         ?removeArticleHeaderLinkSubDomain=${true}
         apiHost=${config.main.apiHost}
         articleHeaderLinkSubDomain="content"
-        per_page="3"
-        include="5545,5479,5446"
+        per_page=${config.main.numberOfInitialPosts}
       >
       </x-postpress>
 
