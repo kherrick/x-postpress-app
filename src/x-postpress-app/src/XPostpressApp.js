@@ -105,6 +105,11 @@ export class XPostpressApp extends LitElement {
           path="/${config.getBouncePath(0)}"
         ></lit-route>
         <lit-route
+          .resolve="${() => import('./components/XPostpressBouncer.js')}"
+          component="x-postpress-bouncer"
+          path="/${config.getBouncePath(1)}"
+        ></lit-route>
+        <lit-route
           .resolve="${() => import('./components/XPostpressSinglePost.js')}"
           component="x-postpress-single-post"
           path="${this._path}:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:article"

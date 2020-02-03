@@ -101,6 +101,7 @@ export default {
     }
   ],
   getBouncePath: bouncePath => [
+    'pwgen/',
     'x-weather-app/',
     'x-postpress-app/'
   ][bouncePath],
