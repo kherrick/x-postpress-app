@@ -234,7 +234,20 @@ const XPostpressDrawer = class extends LitElement {
             </paper-item>
           </div>
         </paper-listbox>
-
+        <paper-listbox>
+          <div class="sidebar-link">
+            <paper-item @click=${() => document.location.href='https://kherrick.github.io/tfjs-component-playground/'}>
+              TFJS Component Playground
+            </paper-item>
+          </div>
+        </paper-listbox>
+        <paper-listbox>
+          <div class="sidebar-link">
+            <paper-item @click=${() => document.location.href='https://kherrick.github.io/pwgen/'}>
+              pwgen
+            </paper-item>
+          </div>
+        </paper-listbox>
         <div class="drawer-header">Testing</div>
         <paper-listbox>
           <div class="sidebar-link">
